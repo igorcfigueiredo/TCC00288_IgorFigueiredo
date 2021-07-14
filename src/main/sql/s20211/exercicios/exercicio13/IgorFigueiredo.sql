@@ -39,7 +39,7 @@ INSERT INTO time_ (sigla, nome) VALUES ('VAS', 'Vasco');
 INSERT INTO campeonato (codigo, nome, ano) VALUES ('teste', 'Teste', 2021);
 INSERT INTO jogo (campeonato, numero, time1, time2, gols1, gols2, data_) VALUES ('teste', 1, 'FLA', 'VAS', 1, 0, NOW());
 INSERT INTO jogo (campeonato, numero, time1, time2, gols1, gols2, data_) VALUES ('teste', 3, 'FLA', 'VAS', 1, 0, NOW());
-INSERT INTO jogo (campeonato, numero, time1, time2, gols1, gols2, data_) VALUES ('teste', 2, 'VAS', 'FLA', 2, 1, NOW());
+-- INSERT INTO jogo (campeonato, numero, time1, time2, gols1, gols2, data_) VALUES ('teste', 2, 'VAS', 'FLA', 2, 1, NOW());
 
 
 CREATE OR REPLACE FUNCTION computaTabela5(id_campeonato text, pos_inicial int, pos_final int)
@@ -67,7 +67,7 @@ BEGIN
                         ELSE 0 
                     END
                 ) as pontos
-            FROM jogo WHERE campeonato = id_campeonato AND time2 = t.sigla)
+            FROM jogo WHERE campeonato = id_campeonato AND time2 = t.sigla OR 0)
         )
         as pontos,
         (   
