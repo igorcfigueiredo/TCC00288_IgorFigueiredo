@@ -64,7 +64,7 @@ INSERT INTO ARENA VALUES (3, 'Arena3', 'asda', 1000);
 
 INSERT INTO CONCERTO VALUES (1, 1, 1, TO_TIMESTAMP('2017-03-31 9:30:20','YYYY-MM-DD HH:MI:SS'), CURRENT_TIMESTAMP, 0.0);
 
-DROP FUNCTION arena_artista_ocupados;
+DROP FUNCTION IF EXISTS arena_artista_ocupados;
 CREATE OR REPLACE FUNCTION arena_artista_ocupados() RETURNS trigger AS $arena_artista_ocupados$
     DECLARE
         arena_ocupada int = 0;
@@ -87,7 +87,7 @@ $arena_artista_ocupados$ LANGUAGE plpgsql;
 CREATE TRIGGER arena_artista_ocupados BEFORE INSERT ON concerto
     FOR EACH ROW EXECUTE FUNCTION arena_artista_ocupados();
 
-DROP FUNCTION proibido_exclusao_artista;
+DROP FUNCTION IF EXISTS proibido_exclusao_artista;
 CREATE OR REPLACE FUNCTION proibido_exclusao_artista() RETURNS trigger AS $proibido_exclusao_artista$
     DECLARE
         qnts_artistas int = 0;
