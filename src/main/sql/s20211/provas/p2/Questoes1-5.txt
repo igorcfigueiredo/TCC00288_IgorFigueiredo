@@ -1,0 +1,36 @@
+1 - Transação é um programa em execução que forma uma unidade lógica de processamento de banco de dados, 
+utilizando uma ou mais operações de inserção, modificação, exclusão ou recuperação no banco.
+
+2 -  As propriedades são as chamadas ACID:
+
+Atomicidade - A transação deve ser realizada totalmente ou não ser realizada. (indivisível)
+
+Consistência - A transação, se executada, deve mudar o banco de um estado consistente para outro também consistente.
+
+Isolamento - A transação não deve sofrer interferência por qualquer outra transação, mesmo se ela estiver sendo executada simultaneamente.
+
+Durabilidade - As mudanças causadas pela transação não podem ser perdidas por falhas.
+
+3 - Um schedule é uma ordenação das operações das transações, de forma que as operações de diferentes transações possam ser 
+intercaladas no schedule, mas as operações de uma mesma transação devem ser executadas na ordem da própria transação, 
+ou seja, caso a transação faça uma leitura e depois uma escrita, ela não pode fazer a escrita primeiro, mesmo que entre sua leitura 
+e escrita hajam outras operações de outras transações no schedule.
+
+4 - 
+    T1                          T2
+read_lock(Y);             read_lock(X);
+read_item(Y);             read_item(X);
+write_lock(X);            write_lock(Y);
+unlock(Y);                unlock(X);
+read_item(X);             read_item(Y);
+X := X + Y;               Y := X + Y;
+write_item(X);            write_item(Y);
+unlock(X);                unlock(Y);
+
+
+5 - 
+Existe a técnica de controle de concorrência otimista em que nenhuma verificação é feita enquanto a transação está executando. 
+Durante a execução da transação, todas as atualizações são aplicadas a cópias locais dos itens de dados. Ao término da execução da 
+transação, uma “fase de validação“ verifica se qualquer uma das atualizações da transação viola a serialização. Se a serialização não 
+for violada, a transação é confirmada e as cópias locais passam para o banco de dados. Se for violada, a transação é abortada e reiniciada 
+mais tarde.
